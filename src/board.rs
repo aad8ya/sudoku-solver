@@ -47,4 +47,30 @@ impl SudokuBoard {
     pub fn get_box_idx(row: usize, col: usize) -> usize {
         (row / BOX_SIZE) * BOX_SIZE + (col / BOX_SIZE)
     }
+
+    pub fn get_candidates(&self, row: usize, col: usize) -> u16 {
+        if self.get(row, col) != 0 {
+            return 0;
+        }
+
+        let mut mask: u16 = 0x3FE;
+
+        let box_row_start = (row / BOX_SIZE) * BOX_SIZE;
+        let box_col_start = (col / BOX_SIZE) * BOX_SIZE;
+
+        for i in 0..SIZE {
+            let row_val = self.get(row. i);
+            if row_val != 0 { mask &= !(1 << row_val); }
+
+            let col_val = self.get(i, col);
+            if col_val != 0 { mask &= !(1 << col_val); }
+
+            let r = box_row_start + (i / BOX_SIZE);
+            let c = box_col_start + (i % BOX_SIZE);
+            let box_val = self.get(r, c);
+            if box_val != 0 { mask &= !(1 << box_val); }
+        }
+
+        mask
+    }
 }
