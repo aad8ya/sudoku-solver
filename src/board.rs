@@ -26,7 +26,7 @@ impl SudokuBoard {
         Some(SudokuBoard { cells})
     }
 
-    pub fun get_idx(row: usize, col: usize) -> usize {
+    pub fn get_idx(row: usize, col: usize) -> usize {
         row * SIZE + col
     }
 
@@ -38,7 +38,7 @@ impl SudokuBoard {
         self.cells[Self::get_idx(row, col)]
     }
 
-    pub fn set(&self, row: usize, col: usize, val:u8) {
+    pub fn set(&mut self, row: usize, col: usize, val:u8) {
         let idx = Self::get_idx(row, col);
 
         self.cells[idx] = val;
@@ -59,7 +59,7 @@ impl SudokuBoard {
         let box_col_start = (col / BOX_SIZE) * BOX_SIZE;
 
         for i in 0..SIZE {
-            let row_val = self.get(row. i);
+            let row_val = self.get(row, i);
             if row_val != 0 { mask &= !(1 << row_val); }
 
             let col_val = self.get(i, col);
