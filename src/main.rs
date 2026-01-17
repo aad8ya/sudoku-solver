@@ -7,6 +7,7 @@ fn main() {
     match SudokuBoard::new(puzzle) {
         Some(board) => {
             println!("Board initialized successfully");
+            board.display();
             let candidates = board.get_candidates(0, 2);
             println!("Candidates for cell (0, 2) in bitmask: {:b}", candidates);
 

@@ -48,6 +48,29 @@ impl SudokuBoard {
         (row / BOX_SIZE) * BOX_SIZE + (col / BOX_SIZE)
     }
 
+    pub fn display(&self) {
+        for r in 0..SIZE {
+            if r > 0 && r % BOX_SIZE == 0 {
+                println!("------+-------+------");
+            }
+
+            for c in 0..SIZE {
+                if c > 0 && c % BOX_SIZE == 0 {
+                    print!("| ");
+                }
+
+                let val = self.get(r, c);
+                if val == 0 {
+                    print!(". ")
+                } else {
+                    print!("{} ", val);
+                }
+            }
+
+            println!();
+        }
+    }
+
     pub fn get_candidates(&self, row: usize, col: usize) -> u16 {
         if self.get(row, col) != 0 {
             return 0;
